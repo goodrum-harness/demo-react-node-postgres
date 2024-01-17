@@ -6,18 +6,18 @@ replicaCount: 1
 
 
 image:
-  repository: goodrumharness/demo-frontend
-  tag: latest
+  repository: <+artifacts.primary.image>
+  tag: <+artifact.tag>
   pullPolicy: Always
 command:
   - npm
 args:
   - start
 custom_envs:
-  - name: BACKEND_HOST
-    value: "20.22.37.183"
-  - name: BACKEND_PORT
-    value: "8080"
+  - name: REACT_APP_BACKEND_HOST
+    value: <+serviceVariables.BACKEND_HOST>
+  - name: REACT_APP_BACKEND_PORT
+    value: <+serviceVariables.BACKEND_PORT>
 
 imagePullSecrets: []
 nameOverride: ""
