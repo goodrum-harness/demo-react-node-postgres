@@ -6,7 +6,7 @@ replicaCount: 1
 
 
 image:
-  repository: <+artifacts.primary.image>
+  repository: <+artifact.imagePath>
   tag: <+artifact.tag>
   pullPolicy: Always
 command:

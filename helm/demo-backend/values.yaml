@@ -5,23 +5,22 @@
 replicaCount: 1
 
 image:
-  repository: goodrumharness/demo-backend
-  tag: latest
+  repository: <+artifact.imagePath>
+  tag: <+artifact.tag>
   pullPolicy: Always
 command:
   - npm
 args:
-#   - server.js
   - start
 custom_envs:
   - name: DB_HOST
-    value: postgres-postgresql.development.svc.cluster.local
+    value: <+serviceVariables.DB_HOST>
   - name: DB_USER
-    value: app_user
+    value: <+serviceVariables.DB_USER>
   - name: DB_PASSWORD
-    value: H@rness123
+    value: <+serviceVariables.DB_PASSWORD>
   - name: DB_NAME
-    value: testdb
+    value: <+serviceVariables.DB_NAME>
 
 
 imagePullSecrets: []
