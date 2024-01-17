@@ -9,11 +9,12 @@ ifneq ("$(wildcard ../Makefile.local)", "")
 	include ../Makefile.local
 endif
 
-CONTAINER_NAME=demo-backend
+
+CONTAINER_NAME=demo-frontend
 DOCKER_IMAGE=node
 DOCKER_TAG=20.11.0-alpine
-DOCKER_PORTS=-p 8080:8080
-COMMAND_ARGS=server.js
+DOCKER_PORTS=-p 8081:8081
+COMMAND_ARGS=npm start
 
 ifneq ("$(wildcard Makefile.local)", "")
 	include Makefile.local

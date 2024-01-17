@@ -1,0 +1,23 @@
+command:
+  - /bin/bash
+  - -ec
+  - node
+args:
+  - server.js
+image:
+  repository: goodrumharness/demo-backend
+  tag: latest
+  pullPolicy: Always
+extraEnvVars:
+  - name: DB_HOST
+    value: postgres-postgresql
+  - name: DB_USER
+    value: app_user
+  - name: DB_PASSWORD
+    value: H@rness123
+  - name: DB_NAME
+    value: testdb
+service:
+  type: NodePort
+  ports:
+    http: 8080

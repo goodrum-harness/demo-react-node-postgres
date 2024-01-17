@@ -8,16 +8,15 @@ endif
 ifneq ("$(wildcard ../Makefile.local)", "")
 	include ../Makefile.local
 endif
-
-CONTAINER_NAME=demo-backend
-DOCKER_IMAGE=node
-DOCKER_TAG=20.11.0-alpine
-DOCKER_PORTS=-p 8080:8080
-COMMAND_ARGS=server.js
-
 ifneq ("$(wildcard Makefile.local)", "")
 	include Makefile.local
 endif
+
+CONTAINER_NAME=demo-db
+DOCKER_IMAGE=postgres
+DOCKER_TAG=16-alpine
+DOCKER_PORTS=-p 5432:5432
+DOCKER_ENV=-e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=testdb
 
 .PHONY: debug
 debug: cleanup network
@@ -31,6 +30,7 @@ logs:
 
 .PHONY: deploy
 deploy: cleanup network
+	$(eval RUN_FLAGS=-d)
 	@(${DOCKER_RUN})
 
 .PHONY: connect
