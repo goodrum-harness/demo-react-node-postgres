@@ -1,8 +1,5 @@
 ---
 auth:
-  # username: <+variables.postgres_user>
-  # password: <+secrets.getValue("postgres_password")>
-  # database: <+variables.postgres_db>
-  username: app_user
-  password: H@rness123
-  database: testdb
+  username: <+serviceVariables.DB_USER>
+  password: <+serviceVariables.DB_PASSWORD>
+  database: <+serviceVariables.DB_NAME>
