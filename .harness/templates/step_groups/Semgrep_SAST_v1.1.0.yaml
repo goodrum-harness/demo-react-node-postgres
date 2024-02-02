@@ -1,0 +1,62 @@
+template:
+  name: Semgrep SAST
+  type: StepGroup
+  projectIdentifier: Local_Testing
+  orgIdentifier: default
+  spec:
+    steps:
+      - step:
+          type: Run
+          name: Scan
+          identifier: Scan
+          spec:
+            connectorRef: DockerHub
+            image: returntocorp/semgrep
+            shell: Sh
+            command: semgrep --sarif --config auto -o ${INJESTION_FILE} /harness --verbose
+            envVariables:
+              INJESTION_FILE: <+execution.steps.Semgrep_SAST.variables.SCAN_INJESTION_FILE>
+            resources:
+              limits:
+                memory: 2Gi
+      - step:
+          type: Semgrep
+          name: Ingest
+          identifier: Ingest
+          spec:
+            mode: ingestion
+            config: default
+            target:
+              name: <+execution.steps.Semgrep_SAST.variables.SCAN_TARGET>
+              type: repository
+              variant: <+execution.steps.Semgrep_SAST.variables.SCAN_VARIANT>
+            advanced:
+              log:
+                level: debug
+            ingestion:
+              file: <+execution.steps.Semgrep_SAST.variables.SCAN_INJESTION_FILE>
+          enforce:
+            policySets:
+              - Scan_Policy_Gates
+        isContainerStepGroup: false
+    variables:
+      - name: SCAN_TARGET
+        type: String
+        value: <+pipeline.properties.ci.codebase.repoName>
+        description: Provide the STO Target name for this scan target
+        required: true
+      - name: SCAN_VARIANT
+        type: String
+        value: <+input>.default(<+codebase.branch>)
+        description: ""
+        required: true
+        default: <+codebase.branch>
+      - name: SCAN_INJESTION_FILE
+        type: String
+        value: /harness/scan_results.sarif
+        description: Enter the name of the ingestion file that should be created and consumed.  Default file is '/harness/scan_results.sarif'
+        required: true
+        default: /harness/scan_results.sarif
+    stageType: SecurityTests
+  identifier: Semgrep_SAST
+  versionLabel: v1.1.0
