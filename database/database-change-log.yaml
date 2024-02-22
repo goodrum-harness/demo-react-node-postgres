@@ -34,3 +34,23 @@ databaseChangeLog:
             name: updatedAt
             type: TIMESTAMP WITH TIME ZONE
         tableName: tutorials
+
+- changeSet:
+    id: addColumn-notes
+    author: jeremy.goodrum@harness.io
+    changes:
+      - addColumn:
+          tableName: tutorials
+          columns:
+          - column:
+              name: notes
+              type: varchar(255)
+-  changeSet:
+    id:  renameColumn-notes
+    author: jeremy.goodrum@harness.io
+    changes:
+    -  renameColumn:
+        tableName:  tutorials
+        newColumnName:  detailed_notes
+        oldColumnName:  notes
+        columnDataType:  varchar(255)
