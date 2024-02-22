@@ -44,3 +44,22 @@ databaseChangeLog:
           - column:
               name: notes
               type: varchar(255)
+-  changeSet:
+    id:  renameColumn-notes
+    author: jeremy.goodrum@harness.io
+    changes:
+    -  renameColumn:
+        tableName:  tutorials
+        newColumnName:  detailed_notes
+        oldColumnName:  notes
+        columnDataType:  varchar(255)
+- changeSet:
+    id: addColumn-links
+    author: jeremy.goodrum@harness.io
+    changes:
+      - addColumn:
+          tableName: tutorials
+          columns:
+          - column:
+              name: links
+              type: varchar(255)
