@@ -16,6 +16,7 @@ exports.create = (req, res) => {
   const tutorial = {
     title: req.body.title,
     description: req.body.description,
+    notes: req.body.notes,
     published: req.body.published ? req.body.published : false
   };
 
@@ -36,7 +37,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
-  
+
     Tutorial.findAll({ where: condition })
       .then(data => {
         res.send(data);

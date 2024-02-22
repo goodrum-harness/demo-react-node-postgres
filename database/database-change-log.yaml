@@ -34,3 +34,13 @@ databaseChangeLog:
             name: updatedAt
             type: TIMESTAMP WITH TIME ZONE
         tableName: tutorials
+- changeSet:
+    id: addColumn-notes
+    author: jeremy.goodrum@harness.io
+    changes:
+      - addColumn:
+          tableName: tutorials
+          columns:
+          - column:
+              name: notes
+              type: varchar(255)

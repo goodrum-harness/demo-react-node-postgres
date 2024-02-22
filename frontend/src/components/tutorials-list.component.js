@@ -158,6 +158,12 @@ export default class TutorialsList extends Component {
               </div>
               <div>
                 <label>
+                  <strong>Notes:</strong>
+                </label>{" "}
+                {currentTutorial.notes}
+              </div>
+              <div>
+                <label>
                   <strong>Status:</strong>
                 </label>{" "}
                 {currentTutorial.published ? "Published" : "Pending"}

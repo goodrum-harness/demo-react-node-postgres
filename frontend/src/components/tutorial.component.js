@@ -17,6 +17,7 @@ class Tutorial extends Component {
         id: null,
         title: "",
         description: "",
+        notes: "",
         published: false
       },
       message: ""
@@ -42,11 +43,22 @@ class Tutorial extends Component {
 
   onChangeDescription(e) {
     const description = e.target.value;
-    
+
     this.setState(prevState => ({
       currentTutorial: {
         ...prevState.currentTutorial,
         description: description
+      }
+    }));
+  }
+
+  onChangeNotes(e) {
+    const notes = e.target.value;
+
+    this.setState(prevState => ({
+      currentTutorial: {
+        ...prevState.currentTutorial,
+        notes: notes
       }
     }));
   }
@@ -69,6 +81,7 @@ class Tutorial extends Component {
       id: this.state.currentTutorial.id,
       title: this.state.currentTutorial.title,
       description: this.state.currentTutorial.description,
+      notes: this.state.currentTutorial.notes,
       published: status
     };
 
@@ -103,7 +116,7 @@ class Tutorial extends Component {
       });
   }
 
-  deleteTutorial() {    
+  deleteTutorial() {
     TutorialDataService.delete(this.state.currentTutorial.id)
       .then(response => {
         console.log(response.data);
@@ -132,15 +145,25 @@ class Tutorial extends Component {
                   value={currentTutorial.title}
                   onChange={this.onChangeTitle}
                 />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="description"
+                    value={currentTutorial.description}
+                    onChange={this.onChangeDescription}
+                  />
               </div>
               <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="notes">Notes</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="description"
-                  value={currentTutorial.description}
-                  onChange={this.onChangeDescription}
+                  id="notes"
+                  value={currentTutorial.notes}
+                  onChange={this.onChangeNotes}
                 />
               </div>
 

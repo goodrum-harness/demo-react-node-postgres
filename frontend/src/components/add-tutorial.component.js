@@ -6,13 +6,15 @@ export default class AddTutorial extends Component {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeNotes = this.onChangeNotes.bind(this);
     this.saveTutorial = this.saveTutorial.bind(this);
     this.newTutorial = this.newTutorial.bind(this);
 
     this.state = {
       id: null,
       title: "",
-      description: "", 
+      description: "",
+      notes: "",
       published: false,
 
       submitted: false
@@ -31,10 +33,17 @@ export default class AddTutorial extends Component {
     });
   }
 
+  onChangeNotes(e) {
+    this.setState({
+      notes: e.target.value
+    });
+  }
+
   saveTutorial() {
     var data = {
       title: this.state.title,
-      description: this.state.description
+      description: this.state.description,
+      notes: this.state.notes
     };
 
     TutorialDataService.create(data)
@@ -43,6 +52,7 @@ export default class AddTutorial extends Component {
           id: response.data.id,
           title: response.data.title,
           description: response.data.description,
+          notes: response.data.notes,
           published: response.data.published,
 
           submitted: true
@@ -59,6 +69,7 @@ export default class AddTutorial extends Component {
       id: null,
       title: "",
       description: "",
+      notes: "",
       published: false,
 
       submitted: false
@@ -91,8 +102,8 @@ export default class AddTutorial extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <input
+            <label htmlFor="description">Description</label>
+            <input
                 type="text"
                 className="form-control"
                 id="description"
@@ -100,7 +111,20 @@ export default class AddTutorial extends Component {
                 value={this.state.description}
                 onChange={this.onChangeDescription}
                 name="description"
-              />
+            />
+            </div>
+
+            <div className="form-group">
+            <label htmlFor="notes">Notes</label>
+            <input
+                type="text"
+                className="form-control"
+                id="notes"
+                required
+                value={this.state.notes}
+                onChange={this.onChangeNotes}
+                name="notes"
+            />
             </div>
 
             <button onClick={this.saveTutorial} className="btn btn-success">
